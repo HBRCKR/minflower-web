@@ -1,8 +1,10 @@
 <script>
+	import { goto } from "$app/navigation";
+
 	// import FloatButton from "./(app)/components/FloatButton.svelte";
 	// import Footer from "./(app)/components/Footer.svelte";
     // import Header from "./(app)/components/Header.svelte";    
-    
+    goto("/clinic/greeting")
 </script>
 
 <div id="wrap" class="wrap" data-role="page-container">

@@ -2,7 +2,6 @@
     <div class="fcdeck_container">
         <div class="fcdeck_ct">
             <div class="card" data-cid="ep6m9bb4" data-anchor="4845696fef2033f5a83dd1dd7fd9a446">
-                <!-- [D] 타이틀 비노출할 경우 is_title_none 클래스 추가 -->
                 <h3 class="uio_title theme_color" id="title">
                     <span class="uio_title_bullet theme_background"></span>
                     학습전략 코칭

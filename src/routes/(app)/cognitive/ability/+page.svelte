@@ -2,7 +2,6 @@
     <div class="fcdeck_container">
         <div class="fcdeck_ct">
             <div class="card" data-cid="2bob5g4n" data-anchor="72d243d3332e078d3a81837498af8678">
-                <!-- [D] 타이틀 비노출할 경우 is_title_none 클래스 추가 -->
                 <h3 class="uio_title theme_color" id="title">
                     <span class="uio_title_bullet theme_background"></span>
                     인지능력 향상 프로그램

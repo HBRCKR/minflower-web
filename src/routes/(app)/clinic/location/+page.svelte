@@ -2,16 +2,6 @@
 	import { onMount } from "svelte";
 
   onMount(()=>{
-    // <div
-    //                   class="map"
-    //                   id="convenienceInformationMap"
-    //                   data-title="강남엑슬루프라임"
-    //                   data-latitude="37.4730721"
-    //                   data-longitude="127.1024399"
-    //                   data-zoom="13"
-    //                   data-local-num="0"
-    //                   tabindex="0"
-    //                 ></div>
     const mapOptions = {
         title:"강남엑슬루프라임",
         center: new naver.maps.LatLng(37.4730721, 127.1024399),
@@ -42,8 +32,6 @@
           <span class="uio_title_bullet theme_background"></span>
           오시는 길
         </h3>
-
-        <!-- 실제 위치 정보 영역 -->
         <div class="main_area current" data-cid="3zcg3azu" data-title="오시는 길">
           <div class="inner _inner">
             <div class="uio_box info_box">
@@ -53,12 +41,6 @@
                     <div
                       class="map"
                       id="convenienceInformationMap"
-                      data-title="강남엑슬루프라임"
-                      data-latitude="37.4730721"
-                      data-longitude="127.1024399"
-                      data-zoom="13"
-                      data-local-num="0"
-                      tabindex="0"
                     ></div>
                     <div class="map_adr">
                       <h3>강남엑슬루프라임</h3>
@@ -73,8 +55,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <!-- 오시는 길 텍스트 -->
                   <div class="local_area _localArea">
                     <dl class="list_info">
                       <dt class="item_title"><span class="nicon_pin2"></span>오시는길</dt>
@@ -91,8 +71,6 @@
                         </span>
                       </dd>
                     </dl>
-
-                    <!-- 이용시간 -->
                     <dl class="list_info">
                       <dt class="item_title">
                         <span class="nicon_time2"></span>이용시간
@@ -111,8 +89,6 @@
                         <span class="text sub_description">일요일과 공휴일은 휴무입니다.</span>
                       </dd>
                     </dl>
-
-                    <!-- 전화번호 -->
                     <dl class="list_info _telephoneArea">
                       <dt class="item_title"><span class="nicon_call2"></span>전화번호</dt>
                       <dd class="item_description">
@@ -121,14 +97,12 @@
                       </dd>
                     </dl>
                   </div>
-
-                  <!-- 계좌영역(비어 있음) -->
                   <div class="area_aaccount _accountArea"></div>
                 </div>
               </div>
             </div>
-          </div> <!-- inner -->
-        </div> <!-- main_area -->
+          </div> 
+        </div> 
       </div>
     </div>
   </div>

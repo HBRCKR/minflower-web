@@ -1,4 +1,17 @@
-<ul class="floating_item _floating">
+<script lang="ts">
+    import { onMount } from "svelte";
+    export let isSideMenuOpen = false;
+
+    // openTalkTalk 함수를 onMount 밖으로 이동
+    const openTalkTalk = () => {
+        window.open(
+            'http://talk.naver.com/wmhxwib?ref=http%3A%2F%2Flocalhost%3A5176%2Fclinic%2Fgreeting%23',
+            'talktalk',
+            'scrollbars=1, resizable=1, width=486, height=745'
+        );
+    };
+</script>
+<ul class="floating_item _floating {isSideMenuOpen ? 'is_side_menu_open' : ''}">
     <li>
         <a href="index.html#" class="link_item theme_background _btnFloating" data-cid=""
             data-type="defaultPhone" data-data="" data-name="전화">
@@ -12,10 +25,19 @@
         </a>
     </li>
     <li>
-        <a href="index.html#" class="link_item theme_background _btnFloating" data-cid=""
-            data-type="talkLink" data-data="" data-name="톡톡">
-            <span class="icon icon43"></span><span class="text">톡톡</span>
+        <!-- <script type="text/javascript" src="https://partner.talk.naver.com/banners/script"></script> -->
+        <a 
+            href="#"
+            on:click={openTalkTalk}
+            class="talk_banner_div link_item theme_background _btnFloating" data-cid="159418"
+            data-type="talkLink" data-data="159418" data-name="톡톡"
+        >
+        <span class="icon icon43"></span><span class="text">톡톡</span>
         </a>
+        
+        <!-- <div class="talk_banner_div " data-id="159418" >
+            
+        </div> -->
     </li>
     <li>
         <a href="index.html#" class="link_item top_item _btnFloating" data-type="top">
@@ -23,3 +45,9 @@
         </a>
     </li>
 </ul>
+
+<style>
+    .is_side_menu_open {        
+        right: 370px;
+    }
+</style>

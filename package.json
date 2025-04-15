@@ -61,6 +61,7 @@
 		"svelte"
 	],
 	"dependencies": {
+		"moment": "^2.30.1",
 		"swiper": "^9.4.1"
 	}
 }

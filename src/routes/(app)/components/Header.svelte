@@ -6,7 +6,7 @@
     import 'swiper/css/bundle';
 	import { nonpassive } from "svelte/legacy";
     
-    let isSideMenuOpen = false;
+    export let isSideMenuOpen = false;
 
     const toggleSideMenu = () => {
     isSideMenuOpen = !isSideMenuOpen;
@@ -92,7 +92,8 @@
                 path: "/career-aptitude",
                 orderNo: 6
                 }
-            ]
+            ],
+            orderNo:0
         },
         {
         name: "인지학습 프로그램",
@@ -113,7 +114,8 @@
             orderNo: 3
             }
         ],
-        path: "/cognitive"
+        path: "/cognitive",
+        orderNo:0
         },
         {
             name: "언어 프로그램",
@@ -134,7 +136,8 @@
                 orderNo: 3
                 }
             ],
-            path: "/language"
+            path: "/language",
+            orderNo:0
         },
         {
             name: "그룹 프로그램",
@@ -160,7 +163,8 @@
                 orderNo: 4
                 }
             ],
-            path: "/group"
+            path: "/group",
+            orderNo:0
         },
         {
             name: "상담 및 컨설팅",
@@ -181,12 +185,14 @@
                 orderNo: 3
                 }
             ],
-            path: "/consulting"
+            path: "/consulting",
+            orderNo:0
         },      
         {
         name: "공지사항",
         subMenuItems: [],
-        path: "/notice"
+        path: "/notice",
+        orderNo:0
         }
     ]
 
@@ -321,7 +327,7 @@
               <span class="nicon_drawer"></span>
               전체보기
             </button>
-            <a href="#" class="btn_login _btn_login">로그인</a>
+            <!-- <a href="#" class="btn_login _btn_login">로그인</a> -->
           </div>
         </div>
       </div>
@@ -350,10 +356,11 @@
         </ul>
       </div>
     </div>
-  </div>
-{#if isSideMenuOpen}
-<SideMenuOpen></SideMenuOpen>
-{/if} 
+  </div>  
+  <SideMenuOpen
+  bind:isOpen={isSideMenuOpen}
+  menu_items={menu_items}
+  ></SideMenuOpen>
 
 <style global> 
     /* .area_logo::after{

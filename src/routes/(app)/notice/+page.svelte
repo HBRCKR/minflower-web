@@ -1,11 +1,13 @@
-<script>
-    const notices = [
-      { id: 1, title: '📢 3월 프로그램 안내', author: '관리자', date: '2025-03-01' },
-      { id: 2, title: '🏫 설 연휴 운영 안내', author: '관리자', date: '2025-02-05' },
-      { id: 3, title: '🎉 신규 프로그램 개설 안내', author: '관리자', date: '2025-01-15' },
-      { id: 4, title: '📌 이용약관 변경 사전 안내', author: '관리자', date: '2025-01-01' }
-    ];
-  </script>
+<script lang="ts">
+    import type { PageData } from './$types.js';
+    import type { BoardDetail } from '$lib/type/board/board.js';
+    import { writable } from 'svelte/store';
+	  import moment from 'moment';
+
+    export let data: PageData;
+
+    let boards = writable<BoardDetail[]>(data.boardPage.content);
+</script>
 <div class="fc_content content _content_body">
     <div class="fcdeck_container">
         <div class="fcdeck_ct">
@@ -59,93 +61,29 @@
                                     <th scope="col">작성일</th>
                                   </tr>
                                   </thead>
-                                  <tbody class="_boardContent"><tr class="" data-message-no="5" data-login-id="mindflower2" data-is-old-secret-reply="0">
-                              <td>
-                                <input type="checkbox" class="_check" title="선택">
-                              </td>
-                              <td>
-                                <span class="index">5</span>
-                              </td>
-                              <td>
-                                <div class="area">
-                                                <!-- [D] 한 번 열람했던 글에 visited 클래스 추가해주세요 <a href="#" class="tit visited"> -->
-                                  <a href="#" class="tit">
-                                    🎊강남연세 마인드플라워 클리닉 오픈 이벤트 안내🎊
-                                  </a>
-                                </div>
-                              </td>
-                              <td><span class="writer">관리자</span></td>
-                              <td><span class="date">2025.3.20</span></td>
-                            </tr><tr class="" data-message-no="4" data-login-id="mindflower2" data-is-old-secret-reply="0">
-                              <td>
-                                <input type="checkbox" class="_check" title="선택">
-                              </td>
-                              <td>
-                                <span class="index">4</span>
-                              </td>
-                              <td>
-                                <div class="area">
-                                                <!-- [D] 한 번 열람했던 글에 visited 클래스 추가해주세요 <a href="#" class="tit visited"> -->
-                                  <a href="#" class="tit">
-                                    네이버 예약 서비스를 시작합니다!
-                                  </a>
-                                </div>
-                              </td>
-                              <td><span class="writer">관리자</span></td>
-                              <td><span class="date">2025.3.6</span></td>
-                            </tr><tr class="" data-message-no="3" data-login-id="mindflower2" data-is-old-secret-reply="0">
-                              <td>
-                                <input type="checkbox" class="_check" title="선택">
-                              </td>
-                              <td>
-                                <span class="index">3</span>
-                              </td>
-                              <td>
-                                <div class="area">
-                                                <!-- [D] 한 번 열람했던 글에 visited 클래스 추가해주세요 <a href="#" class="tit visited"> -->
-                                  <a href="#" class="tit">
-                                    정서지능 UP! 자신감 UP! 사회성 프로그램 모집 안내
-                                  </a>
-                                </div>
-                              </td>
-                              <td><span class="writer">관리자</span></td>
-                              <td><span class="date">2025.2.12</span></td>
-                            </tr><tr class="" data-message-no="2" data-login-id="mindflower2" data-is-old-secret-reply="0">
-                              <td>
-                                <input type="checkbox" class="_check" title="선택">
-                              </td>
-                              <td>
-                                <span class="index">2</span>
-                              </td>
-                              <td>
-                                <div class="area">
-                                                <!-- [D] 한 번 열람했던 글에 visited 클래스 추가해주세요 <a href="#" class="tit visited"> -->
-                                  <a href="#" class="tit">
-                                    학교 준비반 프로그램 아동 모집 안내
-                                  </a>
-                                </div>
-                              </td>
-                              <td><span class="writer">관리자</span></td>
-                              <td><span class="date">2025.2.12</span></td>
-                            </tr><tr class="" data-message-no="1" data-login-id="mindflower2" data-is-old-secret-reply="0">
-                              <td>
-                                <input type="checkbox" class="_check" title="선택">
-                              </td>
-                              <td>
-                                <span class="index">1</span>
-                              </td>
-                              <td>
-                                <div class="area">
-                                                <!-- [D] 한 번 열람했던 글에 visited 클래스 추가해주세요 <a href="#" class="tit visited"> -->
-                                  <a href="#" class="tit">
-                                    강남연세 마인드플라워 언어인지학습 클리닉 오픈 안내 🌸
-                                  </a>
-                                </div>
-                              </td>
-                              <td><span class="writer">관리자</span></td>
-                              <td><span class="date">2025.2.5</span></td>
-                            </tr></tbody>
-                                </table>
+                                  <tbody class="_boardContent">
+                                    {#each $boards as board, index}
+                                      <tr class="" data-message-no={`${$boards.length- index}`} data-login-id="mindflower2" data-is-old-secret-reply="0">
+                                      <td>
+                                        <input type="checkbox" class="_check" title="선택">
+                                      </td>
+                                      <td>
+                                        <span class="index">{$boards.length- index}</span>
+                                      </td>
+                                      <td>
+                                        <div class="area">
+                                            <a href="/notice/{board.id}" class="tit">
+                                              {board.title}
+                                          </a>
+                                        </div>
+                                      </td>
+                                      <td><span class="writer">{board.author}</span></td>
+                                      <td><span class="date">{moment(board.createdAt).format('YYYY.MM.DD')}</span></td>
+                                            </tr>
+                                    {/each}
+                                    <!--  -->
+                                </tbody>                                
+                        </table>
                               </div>
                             </div>
                             <div class="paginate _paginate" style=""><a href="#" class="prev _prev"><span class="icon nicon_backward2"><span class="blind">이전</span></span></a><a href="#" class="selected">1</a><a href="#" class="next _next"><span class="icon nicon_forward2"><span class="blind">다음</span></span></a></div>

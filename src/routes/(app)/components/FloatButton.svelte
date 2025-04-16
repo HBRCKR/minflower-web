@@ -35,8 +35,7 @@
         <span class="icon icon43"></span><span class="text">톡톡</span>
         </a>
         
-        <!-- <div class="talk_banner_div " data-id="159418" >
-            
+        <!-- <div class="talk_banner_div " data-id="159418" >            
         </div> -->
     </li>
     <li>

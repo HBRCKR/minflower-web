@@ -1,8 +1,8 @@
 import type { PageServerLoad, Actions } from './$types.js';
 import { error, fail } from '@sveltejs/kit';
 import type { BoardCreate, BoardDetail, BoardPage, BoardUpdate } from '$lib/type/board/board.js';
+import { API_BASE_URL } from '$env/static/private';
 
-const API_BASE_URL = 'http://localhost:8083/api';
 
 export const load: PageServerLoad = async ({ url, fetch }) => {
     const page = url.searchParams.get('page') || '0';

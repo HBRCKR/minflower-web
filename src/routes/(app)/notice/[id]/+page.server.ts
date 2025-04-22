@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types.js';
 import type { BoardDetail } from '$lib/type/board/board.js';
-const API_BASE_URL = 'http://localhost:8083/api';
+import { API_BASE_URL } from '$env/static/private';
 
 export const load: PageServerLoad = async ({ params, fetch }: { params: { id: string }, fetch: typeof globalThis.fetch }) => {
     const response = await fetch(

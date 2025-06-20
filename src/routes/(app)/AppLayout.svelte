@@ -15,7 +15,7 @@
         <div id="main" class="fc_container container" role="main">       
             <slot></slot>  
             <FloatButton bind:isSideMenuOpen={isSideMenuOpen}></FloatButton>
-            <Footer></Footer>                          
+            <Footer></Footer>                                      
         </div>
     </div>
 </div>

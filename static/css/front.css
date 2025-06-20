@@ -2621,8 +2621,7 @@ a {
 .wrap {
     position: relative;
     min-width: 1280px;
-    height: 100%;
-    background-color: #000
+    height: 100%;    
 }
 
 .skip_nav {

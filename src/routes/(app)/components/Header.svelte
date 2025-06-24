@@ -376,7 +376,8 @@
                 </div>
                 <div id="navigationFrame" class="swiper">
                     <ul class="swiper-wrapper list_sitemenu _gnbMenuList">
-                        {#each menu_items as menu, i}                            
+                        {#each menu_items as menu, i}     
+                            {#if menu.name!="공지사항"}                                                   
                             <li               
                                 data-item={menu.subMenuItems.length}
                                 data-index={i}
@@ -394,7 +395,23 @@
                                 <span class="menu_num theme_background">{menu.subMenuItems.length}</span>
                             </a>
                             <span class="selected_line theme_background"></span>                            
-                            </li>    
+                            </li>  
+                            {:else}
+                            <li                                               
+                                class="swiper-slide theme_color"
+                                class:selected={selectedMainIndex === i}                      
+                            >                  
+                            <a
+                                on:click={() => handleMainMenuClick(i)} 
+                                href={menu.path+(menu.subMenuItems.length>0?menu.subMenuItems[0].path:"")}
+                            >
+                                <span class="menu_name">
+                                <span class="text">{menu.name}</span>
+                                </span>                               
+                            </a>
+                            <span class="selected_line theme_background"></span>                            
+                            </li>  
+                            {/if}
                         {/each}
                     </ul>
               </div>

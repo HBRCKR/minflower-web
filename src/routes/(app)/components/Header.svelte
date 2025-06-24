@@ -197,81 +197,165 @@
     ]
 
     let swiper: Swiper;
+    let prevEl: HTMLDivElement | null = null;
+    let nextEl: HTMLDivElement | null = null;
   
     onMount(() => {
-        const options: SwiperOptions = {
-            cssMode: true,
-            direction: 'horizontal',
-            loop: false,
-            slidesPerView: 'auto',
-            spaceBetween: 0,
-            speed: 400,
-            slidesPerGroup: 1,  
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',                
-            },           
-        };
-        swiper = new Swiper('.swiper', options);
-
-        swiper.on('slideChange', () => {
-            const isDisabled = swiper.isBeginning;
-            if (isDisabled) {
-                console.log('prev 버튼은 비활성화됨');
+        // DOM이 완전히 렌더링된 후 Swiper 초기화
+        setTimeout(() => {
+            console.log('Swiper 초기화 시작');
+            console.log('prevEl:', prevEl);
+            console.log('nextEl:', nextEl);
+            
+            // 버튼들을 강제로 표시
+            if (prevEl) {
+                prevEl.style.display = 'flex';
+                prevEl.style.visibility = 'visible';
+                prevEl.style.opacity = '1';
             }
-        });       
+            if (nextEl) {
+                nextEl.style.display = 'flex';
+                nextEl.style.visibility = 'visible';
+                nextEl.style.opacity = '1';
+            }
+            
+            const swiperContainer = document.querySelector('.swiper');
+            console.log('swiperContainer:', swiperContainer);
+            
+            if (!swiperContainer) {
+                console.error('Swiper 컨테이너를 찾을 수 없습니다');
+                return;
+            }
+            
+            const options: SwiperOptions = {
+                cssMode: false, // 데스크톱에서도 작동하도록 false로 변경
+                direction: 'horizontal',
+                loop: false,
+                slidesPerView: 'auto',
+                spaceBetween: 0,
+                speed: 400,
+                slidesPerGroup: 1,  
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',                
+                },
+                watchOverflow: false, // 자동 숨김 비활성화
+                allowTouchMove: true, // 터치/마우스 드래그 허용
+                resistance: true, // 끝에서 저항 효과
+                resistanceRatio: 0.85, // 저항 비율
+                // 슬라이드가 잘리지 않도록 설정
+                breakpoints: {
+                    320: {
+                        slidesPerView: 'auto',
+                        spaceBetween: 0
+                    },
+                    768: {
+                        slidesPerView: 'auto',
+                        spaceBetween: 0
+                    },
+                    1024: {
+                        slidesPerView: 'auto',
+                        spaceBetween: 0
+                    }
+                }
+            };
+            
+            try {
+                swiper = new Swiper('.swiper', options);
+                console.log('Swiper 초기화 성공:', swiper);
+
+                swiper.on('slideChange', () => {
+                    console.log('슬라이드 변경됨');
+                    const isDisabled = swiper.isBeginning;
+                    if (isDisabled) {
+                        console.log('prev 버튼은 비활성화됨');
+                    }
+                });
+
+                // 초기 상태 설정 - 버튼들을 모두 표시
+                console.log('초기에 모든 버튼 표시');
+                if (prevEl) prevEl.style.display = 'flex';
+                if (nextEl) nextEl.style.display = 'flex';
+                
+                // 수동으로 네비게이션 이벤트 추가
+                if (nextEl) {
+                    nextEl.addEventListener('click', () => {
+                        console.log('next 버튼 클릭됨');
+                        if (swiper && !swiper.isEnd) {
+                            swiper.slideNext();
+                        }
+                    });
+                }
+                
+                if (prevEl) {
+                    prevEl.addEventListener('click', () => {
+                        console.log('prev 버튼 클릭됨');
+                        if (swiper && !swiper.isBeginning) {
+                            swiper.slidePrev();
+                        }
+                    });
+                }
+                
+            } catch (error) {
+                console.error('Swiper 초기화 실패:', error);
+            }
+        }, 100);
+
+        // MutationObserver 설정
+        const observers: MutationObserver[] = [];
+        
+        const observeAriaDisabled = (
+            el: HTMLElement | null,
+            type: 'prev' | 'next'
+        ) => {
+            if (!el) return;
+            const observer = new MutationObserver((mutations) => {
+                for (const mutation of mutations) {
+                    if (
+                        mutation.type === 'attributes' &&
+                        mutation.attributeName === 'aria-disabled'
+                    ) {
+                        handleAriaChange(el, type);
+                    }
+                }
+            });
+
+            observer.observe(el, {
+                attributes: true,
+                attributeFilter: ['aria-disabled'],
+            });
+
+            observers.push(observer);
+        };
+
+        // DOM 요소들이 준비된 후 observer 설정
+        setTimeout(() => {
+            if (prevEl && nextEl) {
+                observeAriaDisabled(prevEl, 'prev');
+                observeAriaDisabled(nextEl, 'next');
+            }
+        }, 200);
+
+        return () => {
+            observers.forEach((o) => o.disconnect());
+            if (swiper) {
+                swiper.destroy();
+            }
+        };
     });
 
-   let prevEl: HTMLDivElement | null = null;
-  let nextEl: HTMLDivElement | null = null;
+    function handleAriaChange(el: HTMLElement, type: 'prev' | 'next') {
+        const newValue = el.getAttribute('aria-disabled');
+        console.log(`${type} 버튼 상태:`, newValue);
 
-  function handleAriaChange(el: HTMLElement, type: 'prev' | 'next') {
-    const newValue = el.getAttribute('aria-disabled');
-    console.log(`${type} 버튼 상태:`, newValue);
-
-    if (newValue === 'true') {
-      console.log(`${type} 버튼이 비활성화됨`);
-      el.style.display = 'none';
-    } else {
-      console.log(`${type} 버튼이 활성화됨`);
-      el.style.display = 'flex';
-    }
-  }
-
-  onMount(() => {
-    const observers: MutationObserver[] = [];
-    prevEl!.style.display="none";
-    const observeAriaDisabled = (
-      el: HTMLElement | null,
-      type: 'prev' | 'next'
-    ) => {
-      if (!el) return;
-      const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-          if (
-            mutation.type === 'attributes' &&
-            mutation.attributeName === 'aria-disabled'
-          ) {
-            handleAriaChange(el, type);
-          }
+        if (newValue === 'true') {
+            console.log(`${type} 버튼이 비활성화됨`);
+            el.style.display = 'none';
+        } else {
+            console.log(`${type} 버튼이 활성화됨`);
+            el.style.display = 'flex';
         }
-      });
-
-      observer.observe(el, {
-        attributes: true,
-        attributeFilter: ['aria-disabled'],
-      });
-
-      observers.push(observer);
-    };
-
-    observeAriaDisabled(prevEl, 'prev');
-    observeAriaDisabled(nextEl, 'next');
-
-    return () => {
-      observers.forEach((o) => o.disconnect());
-    };
-  });
+    }
 </script>
 
 <div class="header is_sub_menu" id="mainHeader" role="banner">
@@ -286,9 +370,9 @@
           <div class="area_navbar" role="navigation">
             <div class="list_sitemenu_wrap _navigationWrap ">
                 <div bind:this={prevEl} class="swiper-button-prev">
-                    <button class="btn_list_prev nicon_backward2 _prevBtnNavi ">
+                    <span class="btn_list_prev nicon_backward2 _prevBtnNavi">
                         이전으로
-                    </button>
+                    </span>
                 </div>
                 <div id="navigationFrame" class="swiper">
                     <ul class="swiper-wrapper list_sitemenu _gnbMenuList">
@@ -315,9 +399,9 @@
                     </ul>
               </div>
               <div bind:this={nextEl} class="swiper-button-next">
-                <button class="btn_list_next nicon_forward2 _nextBtnNavi">
-                    <span class="blind">다음 메뉴 보기</span>
-                </button>
+                <span class="btn_list_next nicon_forward2 _nextBtnNavi">
+                    <span class="blind">다음 메뉴 보기</span>                    
+                </span>
                 </div>
             </div>
           </div>
@@ -370,11 +454,27 @@
         display: flex; 
         justify-items: center;       
         align-items: center;
+        position: relative;
+        width: 100%;
     }
+    
+    .swiper {
+        width: 100%;
+        overflow: hidden;
+        flex: 1;
+    }
+    
+    .swiper-wrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        transform: translate3d(0px, 0px, 0px); /* Swiper가 자동으로 설정하는 transform */
+    }
+    
     .swiper-button-prev,
     .swiper-button-next {  
-        position: relative;     
-        display: flex;
+        position: relative !important;     
+        display: flex !important; /* 강제 표시 */
         font-style: normal;
         line-height: 1;       
         font-size: 40px;
@@ -382,35 +482,86 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         font-family: modoo;       
-            
-        
+        z-index: 10;
+        cursor: pointer;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        padding: 5px 10px;
+        color: #333;
+        min-width: 40px;
+        min-height: 30px;        
+        align-items: center;
+        justify-content: center;        
+        transition: all 0.2s ease;
     }
+
+    /* .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+        
+    } */
 
     .swiper-button-prev{        
         padding-right: 30px;
+        margin-right: 10px;
     }
     .swiper-button-next{
         padding-left: 20px;   
+        margin-left: 10px;
     }
+    
     :root {
-    --swiper-navigation-size: 0px; /* 원하는 크기로 변경 */
-  }
+        --swiper-navigation-size: 0px;
+    }
 
     .swiper-button-next::after,
     .swiper-button-prev::after { 
-        font-size: 20px; /* 화살표 크기 */
-        color: #888;
+      font-size: 20px; /* 화살표 크기 */
+      color: #888;
     }
-
-
 
     .swiper-slide {
         width: auto; 
         padding: 0 10px;
         flex-shrink: 0;
         box-sizing: border-box;
-        display: inline-block;
+        display: flex;
+        align-items: center;
+        /* 슬라이드가 잘리지 않도록 설정 */
+        overflow: visible;
     }
-
     
+    /* Swiper가 비활성화된 경우에도 버튼 표시 */
+    .swiper-button-disabled {
+        display: flex !important;
+        opacity: 0.5 !important;
+        background: rgba(200, 200, 200, 0.9) !important;
+        color: #666 !important;
+    }
+    
+    /* 테스트용 스타일 - 버튼이 확실히 보이도록 */
+    .btn_list_prev,
+    .btn_list_next {
+        color: inherit !important;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+    
+    /* 전체 네비게이션 래퍼 스타일 */
+    ._navigationWrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 20px;
+        overflow: visible; /* 부모 컨테이너도 visible로 설정 */
+    }
+    
+    /* 메뉴 아이템이 잘리지 않도록 설정 */
+    .list_sitemenu {
+        overflow: visible;
+    }
 </style>

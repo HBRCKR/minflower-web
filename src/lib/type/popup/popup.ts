@@ -20,6 +20,7 @@ export interface Popup {
     buttonColor: string
     showCloseButton: boolean
     showDontShowAgain: boolean
+    popupType: "text" | "image"
   }
 
 export interface PopupCreate {

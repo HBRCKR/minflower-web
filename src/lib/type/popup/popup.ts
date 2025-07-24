@@ -21,6 +21,7 @@ export interface Popup {
     showCloseButton: boolean
     showDontShowAgain: boolean
     popupType: "text" | "image"
+    linkUrl?: string // 클릭 시 이동할 URL
   }
 
 export interface PopupCreate {
@@ -42,4 +43,5 @@ export interface PopupCreate {
     buttonColor: string,
     showCloseButton: boolean,
     showDontShowAgain: boolean,
+    linkUrl?: string // 클릭 시 이동할 URL
 }

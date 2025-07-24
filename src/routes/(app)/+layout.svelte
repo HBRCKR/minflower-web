@@ -15,31 +15,64 @@ const loadPopups = async () => {
         const data = await result.json()    
         console.log("popups loaded:", data)
         popups = data
+        
+        // 테스트용 팝업 데이터 추가 (API에서 데이터가 없을 경우)
+        if (popups.length === 0) {
+            const testPopup: Popup = {
+                id: 1,
+                title: "공지사항",
+                content: "중요한 공지사항을 확인해보세요!",
+                startDate: new Date().toISOString(),
+                endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30일 후
+                isActive: true,
+                position: "center",
+                size: "medium",
+                showCount: 0,
+                createdAt: new Date().toISOString(),
+                backgroundColor: "#ffffff",
+                textColor: "#333333",
+                titleFontSize: "18",
+                contentFontSize: "14",
+                image: "/popup/2.PNG",
+                imagePosition: "top",
+                buttonText: "확인",
+                buttonColor: "#007bff",
+                showCloseButton: true,
+                showDontShowAgain: true,
+                popupType: "image",
+                linkUrl: "/notice/38"
+            }
+            popups = [testPopup]
+        }
     } catch (error) {
         console.error("Failed to load popups:", error)
-        // 테스트용 더미 데이터
-        // popups = [{
-        //     id: 1,
-        //     title: "테스트 팝업",
-        //     content: "이것은 테스트 팝업입니다.",
-        //     startDate: "2024-01-01",
-        //     endDate: "2024-12-31",
-        //     isActive: true,
-        //     position: "center",
-        //     size: "medium",
-        //     showCount: 0,
-        //     createdAt: "2024-01-01",
-        //     backgroundColor: "#ffffff",
-        //     textColor: "#000000",
-        //     titleFontSize: "18",
-        //     contentFontSize: "14",
-        //     image: "",
-        //     imagePosition: "top",
-        //     buttonText: "확인",
-        //     buttonColor: "#007bff",
-        //     showCloseButton: true,
-        //     showDontShowAgain: false
-        // }]
+        
+        // 에러 발생 시 테스트용 팝업 데이터 추가
+        const testPopup: Popup = {
+            id: 1,
+            title: "공지사항",
+            content: "중요한 공지사항을 확인해보세요!",
+            startDate: new Date().toISOString(),
+            endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30일 후
+            isActive: true,
+            position: "center",
+            size: "medium",
+            showCount: 0,
+            createdAt: new Date().toISOString(),
+            backgroundColor: "#ffffff",
+            textColor: "#333333",
+            titleFontSize: "18",
+            contentFontSize: "14",
+            image: "/popup/2.PNG",
+            imagePosition: "top",
+            buttonText: "확인",
+            buttonColor: "#007bff",
+            showCloseButton: true,
+            showDontShowAgain: true,
+            popupType: "image",
+            linkUrl: "/notice/38"
+        }
+        popups = [testPopup]
     }
   }
 
@@ -60,7 +93,7 @@ $effect(() => {
 <AppLayout>
     <slot></slot>    
     
-    {#if popups.length > 0 && $page.url.pathname === "/clinic/greeting"}    
+    {#if popups.length > 0}    
        <PopupView {popups} />
     {/if}
    

@@ -3,6 +3,7 @@
 	import type { Popup } from "$lib/type/popup/popup.js";
     import { onMount } from "svelte"
     import { popupStates, togglePopup } from "$lib/stores/popupStore.js";
+    import { goto } from "$app/navigation";
 
     const { popups } = $props<{ popups: Popup[] }>()
 
@@ -73,6 +74,18 @@
     saveHiddenPopupsToCookie([...hiddenPopups])
   }
 
+  const handlePopupClick = (popup: Popup, event: MouseEvent) => {
+    // 버튼 클릭은 링크 이동을 방지
+    if ((event.target as HTMLElement).closest('button')) {
+      return
+    }
+    
+    if (popup.linkUrl) {
+      goto(popup.linkUrl)
+      closePopup(popup.id)
+    }
+  }
+
   const getSizeClass = (size: string) => {
     switch (size) {
       case "small":
@@ -138,8 +151,9 @@
 	<div class="fixed inset-0 bg-black/10  z-[9998]" />
 	{#each visiblePopups as popup, index}
 		<div
-			class={`fixed ${getPositionClass(popup.position)}  rounded-lg shadow-2xl border border-gray-200 overflow-hidden z-[9999]`}
+			class={`fixed ${getPositionClass(popup.position)}  rounded-lg shadow-2xl border border-gray-200 overflow-hidden z-[9999] ${popup.linkUrl ? 'cursor-pointer' : ''}`}
 			style="background-color: {popup.backgroundColor}; z-index: {9999 + index};"
+			onclick={(event) => handlePopupClick(popup, event)}
 		>
 		{#if popup.popupType === 'image' && popup.image}
         <!-- 이미지 팝업: 이미지가 팝업창을 꽉 채움 -->
@@ -154,6 +168,24 @@
 			onclick={() => closePopup(popup.id)}>
                 <span class="w-4 h-4 flex items-center justify-center font-bold">×</span>
             </button>
+        {/if}
+        
+        <!-- 하단 버튼 영역 -->
+        {#if popup.showDontShowAgain}
+            <div class="absolute bottom-0 left-0 right-0 bg-white/90 p-3 flex justify-between items-center">
+                <button 
+                    class="text-sm underline hover:no-underline text-gray-600" 
+                    onclick={() => hidePopupForDay(popup.id)}
+                >
+                    하루동안 보지않기
+                </button>
+                <button 
+                    class="text-sm underline hover:no-underline text-gray-600" 
+                    onclick={() => closePopup(popup.id)}
+                >
+                    닫기
+                </button>
+            </div>
         {/if}
     {:else}
         <!-- 텍스트 팝업: 기존 레이아웃 -->

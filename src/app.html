@@ -27,6 +27,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/front.css">
 	<link rel="stylesheet" type="text/css" href="/css/common.css">
 	<link id="naver-splugin-css" rel="stylesheet" type="text/css" href="/css/spi_standard_https.css">
+	<!-- Google tag (gtag.js) -->
 
 
 	<style id="themeColor">
@@ -64,6 +65,15 @@
 	</style>
 	%sveltekit.head%
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S3GT2VP5GV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-S3GT2VP5GV');
+</script>
 
 <body class="portrait  " data-theme-color="#e89788" data-sveltekit-preload-data="hover">
 	<span id="site-name" style="display:none">강남연세 마인드플라워 클리닉</span>

@@ -91,9 +91,10 @@
                     </dl>
                     <dl class="list_info _telephoneArea">
                       <dt class="item_title"><span class="nicon_call2"></span>전화번호</dt>
-                      <dd class="item_description">
-                        <span class="text _telephone" data-telephone="02-2088-7448"></span>
-                        <span class="text _telephone" data-telephone="010-5960-7448"></span>
+                      <dd class="item_description ">
+                        <span class="text _telephone ml-2" data-telephone="02-2088-7448"> 02-2088-7448 </span>
+                        <span class="text _telephone" data-telephone="010-5960-7448"> 010-5960-7448 </span>
+                        <span class="text _telephone" data-telephone="010-5968-7488"> 010-5968-7488 </span>
                       </dd>
                     </dl>
                   </div>

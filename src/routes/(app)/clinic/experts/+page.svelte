@@ -137,6 +137,118 @@
 									<div class="space"></div>
 								</div>
 							</div>
+
+							<div class="component_box _component" data-index="0">
+								<div class="txt_box">
+									<div class="txt_component color1 big align_l t_space " style="color:rgb(232, 151, 136)">
+										<h4>자문위원</h4>
+									</div>
+								</div>
+							</div>
+
+							<div class="component_box component_margin _component" data-index="1">
+								<div class="gallery_area _image_view_container type5 align_l v_align_m black_bg sma   txt_none">
+									<ul class="_image_view_con">
+										<li class="  _image_view_btn" data-img-src="experts/mosad1OiQb.png" data-img-index="0" data-img-title="">
+											<div class="gallery_img">
+                                                <a href="index.html@link=6k5egbo0.html#">
+                                                <img src="experts/01__02_0_5.png" alt="">
+                                                </a>
+                                            </div>
+											<div class="mask_bg" style="opacity:0; filter: alpha(opacity=0)"></div>
+											<div class="gallery_txt">
+												<div class="w1">
+													<div class="w2">
+														<div class="w3">
+															<h3><span></span></h3>
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="component_box _component" data-index="2">
+								<div class="txt_box">
+									<div class="txt_component color1 big align_l t_space " style="color:rgb(232, 151, 136)">
+										<h4>[학력]</h4>
+									</div>
+								</div>
+							</div>
+							<div class="component_box _component" data-index="3">
+								<div class="txt_box">
+									<div class="txt_component color1 big align_l t_space ">
+										<p>연세대학교&nbsp;
+											심리학과&nbsp;
+											학사<br>연세대학교&nbsp;
+											대학원&nbsp;
+											심리학과&nbsp;
+											임상심리학&nbsp;
+											석사,박사</p>
+									</div>
+								</div>
+							</div>
+							<div class="component_box _component" data-index="4">
+								<div class="txt_box">
+									<div class="txt_component color1 big align_l t_space " style="color:rgb(232, 151, 136)">
+										<h4>[경력]</h4>
+									</div>
+								</div>
+							</div>
+							<div class="component_box _component" data-index="5">
+								<div class="txt_box">
+									<div class="txt_component color1 big align_l t_space ">
+										<p>(현)&nbsp;
+											강남연세&nbsp;
+											마인드플라워&nbsp;
+											클리닉&nbsp;
+											자문위원<br>(현)&nbsp;
+											살레시오&nbsp;
+											교육영성센터&nbsp;
+											상담실&nbsp;자문위원<br>(전)&nbsp;
+											인제의대&nbsp;
+											상계백병원&nbsp;
+											연정신건강의학과구원&nbsp;
+											교수</p>
+									</div>
+								</div>
+							</div>
+							<div class="component_box _component" data-index="6">
+								<div class="txt_box">
+									<div class="txt_component color1 big align_l t_space " style="color:rgb(232, 151, 136)">
+										<h4>[자격]</h4>
+									</div>
+								</div>
+							</div>
+							<div class="component_box _component" data-index="7">
+								<div class="txt_box">
+									<div class="txt_component color1 big align_l t_space ">
+										<p>한국심리학회&nbsp;
+											임상심리전문가<br>
+											보건복지부&nbsp;
+											정신건강임상심리사&nbsp;
+											1급
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="component_box _component" data-index="8">
+								<div class="division_line">
+									<div class="space"></div>
+								</div>
+							</div>
+							<div class="component_box _component" data-index="9">
+								<div class="division_line">
+									<div class="line"></div>
+								</div>
+							</div>
+							<div class="component_box _component" data-index="10">
+								<div class="division_line">
+									<div class="space"></div>
+								</div>
+							</div>
+
 							<div class="component_box _component" data-index="11">
 								<div class="txt_box">
 									<div class="txt_component color1 big align_l t_space " style="color:rgb(232, 151, 136)">

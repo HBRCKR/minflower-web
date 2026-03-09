@@ -33,7 +33,7 @@ const loadPopups = async () => {
                 textColor: "#333333",
                 titleFontSize: "18",
                 contentFontSize: "14",
-                image: "/popup/3.PNG",
+                image: "/popup/3.png",
                 imagePosition: "top",
                 buttonText: "확인",
                 buttonColor: "#007bff",
